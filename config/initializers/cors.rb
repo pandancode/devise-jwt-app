@@ -15,12 +15,22 @@
 #   end
 # end
 
+# Rails.application.config.middleware.insert_before 0, Rack::Cors do
+#   allow do
+#     origins '*'
+
+#     resource '*',
+#              headers: :any,
+#              methods: [:get, :post, :put, :patch, :delete, :options, :head]
+#   end
+# end
+
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*'
-
-    resource '*',
-             headers: :any,
-             methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    origins 'http://your.frontend.domain.com'
+    resource '/api/*',
+    headers: %w(Authorization),
+    methods: :any,
+    expose: %w(Authorization)
   end
 end
